@@ -1,0 +1,19 @@
+[unstable]
+# compiler_builtins crate already contains implementations for all the needed functions,
+# they are just disabled by default to not collide with the implementations from
+# the C library.
+build-std-features = ["compiler-builtins-mem"]
+# This tells cargo that it should recompile the core and compiler_builtins libraries
+build-std = ["core", "compiler_builtins"]
+
+
+[build]
+# To avoid passing the --target parameter on every invocation of cargo build, 
+# we can override the default target.
+target = "x86_64-rust-os.json"
+
+[target.'cfg(target_os = "none")']
+# The target.'cfg(target_os = "none")' table applies to all targets whose 
+# target configuration file’s "os" field is set to "none". 
+# This includes our x86_64-rust-os.json target.
+runner = "bootimage runner"
