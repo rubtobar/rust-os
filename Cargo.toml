@@ -7,9 +7,11 @@ edition = "2021"
 
 [dependencies]
 bootloader = "0.9.8"
+volatile = "0.2.6" # This is used to tell the compiler to no optimize some parts of our code, as it references to write to the vga buffer
 
 [profile.dev]
 panic = "abort"
 
 [profile.release]
 panic = "abort"
+
